@@ -8,11 +8,13 @@ const useFetchCountires = (searchValue: string, searchTerm: string) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch(`${BASE_URL}/name/${searchValue}`).then(
-        (response) => response.json()
-      );
-
-      setCountries(data);
+      const response = await fetch(`${BASE_URL}/name/${searchValue}`);
+      if (response.status === 200) {
+        const data: Country[] = await response.json();
+        setCountries(data);
+      } else {
+        setCountries([]);
+      }
     };
 
     fetchData();
