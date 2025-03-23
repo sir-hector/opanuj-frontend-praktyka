@@ -12,6 +12,5 @@ export const Button: React.FC<ButtonProps> = ({
     onClick={onClick}
   >
     {children}
-    
   </button>
 );
