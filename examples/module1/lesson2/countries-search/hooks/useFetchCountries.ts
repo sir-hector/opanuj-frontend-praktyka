@@ -1,20 +1,37 @@
 import { useEffect, useState } from 'react';
-import type { Country } from '../types';
+import type { Country, FilterOptions } from '../types';
+import {
+  fetchAllCountries,
+  fetchCountriesByCapital,
+  fetchCountriesByCurrency,
+  fetchCountriesByLanguage,
+  fetchCountriesByName,
+} from '../api/apiClient';
 
-const BASE_URL = 'https://restcountries.com/v3.1';
-
-const useFetchCountires = (searchValue: string, searchTerm: string) => {
+const useFetchCountires = (searchValue: string, searchTerm: FilterOptions) => {
   const [countries, setCountries] = useState<Country[]>([]);
+
+  const fetchStrategies = {
+    default: fetchAllCountries,
+    name: fetchCountriesByName,
+    language: fetchCountriesByLanguage,
+    currency: fetchCountriesByCurrency,
+    capital: fetchCountriesByCapital,
+  };
+
+  console.log(searchTerm);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${BASE_URL}/name/${searchValue}`);
-      if (response.status === 200) {
-        const data: Country[] = await response.json();
+      try {
+        const fetchFn =
+          searchValue === ''
+            ? fetchAllCountries
+            : (fetchStrategies[searchTerm] ?? fetchStrategies.default);
+
+        const data = await fetchFn(searchValue);
         setCountries(data);
-      } else {
-        setCountries([]);
-      }
+      } catch {}
     };
 
     fetchData();

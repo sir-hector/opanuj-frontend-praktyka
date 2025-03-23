@@ -20,7 +20,6 @@ const FilterOption = ({ value, setValue }: FilterOptionProps) => {
       >
         <option value="name">Name</option>
         <option value="currency">Currency</option>
-        <option value="currency">Currency</option>
         <option value="language">Language</option>
         <option value="capital">Capital</option>
       </select>

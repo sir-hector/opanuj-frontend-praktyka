@@ -10,7 +10,7 @@ const CountriesSearchContainer = () => {
   const [name, setName] = useState('');
   const [filterType, setFilterType] = useState<FilterOptions>('name');
   const [sortOption, setSortOption] = useState<SortOptions>('alphabetical');
-  const { countries } = useFetchCountires(name, 'name');
+  const { countries } = useFetchCountires(name, filterType);
 
   console.log(countries);
   console.log(filterType);
