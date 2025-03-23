@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import useFetchCountires from '../hooks/useFetchCountries';
+import SearchBar from '../components/SearchBar';
 
 const CountriesSearchContainer = () => {
   const [name, setName] = useState('');
@@ -19,8 +20,10 @@ const CountriesSearchContainer = () => {
           onChange={(e) => setName(e.target.value)}
         />
       </form>
+      <SearchBar value={name} />
 
-      {/* character list */}
+      {/* filter options list */}
+      {/* countries list */}
     </main>
   );
 };
