@@ -10,6 +10,8 @@ import {
 
 const useFetchCountires = (searchValue: string, searchTerm: FilterOptions) => {
   const [countries, setCountries] = useState<Country[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchStrategies = {
     default: fetchAllCountries,
@@ -19,9 +21,9 @@ const useFetchCountires = (searchValue: string, searchTerm: FilterOptions) => {
     capital: fetchCountriesByCapital,
   };
 
-  console.log(searchTerm);
-
   useEffect(() => {
+    setIsLoading(true);
+    setError(null);
     const fetchData = async () => {
       try {
         const fetchFn =
@@ -31,7 +33,13 @@ const useFetchCountires = (searchValue: string, searchTerm: FilterOptions) => {
 
         const data = await fetchFn(searchValue);
         setCountries(data);
-      } catch {}
+      } catch (error) {
+        setError(
+          error instanceof Error ? error.message : 'An expected error ocurred'
+        );
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchData();
@@ -39,6 +47,8 @@ const useFetchCountires = (searchValue: string, searchTerm: FilterOptions) => {
 
   return {
     countries,
+    isLoading,
+    error,
   };
 };
 

@@ -12,9 +12,6 @@ const CountriesSearchContainer = () => {
   const [sortOption, setSortOption] = useState<SortOptions>('alphabetical');
   const { countries } = useFetchCountires(name, filterType);
 
-  console.log(countries);
-  console.log(filterType);
-
   return (
     <main className="container mx-auto py-4">
       <div className="flex">
