@@ -11,7 +11,7 @@ const FilterOption = ({ value, setValue }: FilterOptionProps) => {
   };
   return (
     <label className="text-black">
-      Search by:
+      Filter By:
       <select
         id="filter"
         className="border p-2 bg-white"

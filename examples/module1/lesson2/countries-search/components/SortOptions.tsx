@@ -18,11 +18,8 @@ const SortOption = ({ value, setValue }: FilterOptionProps) => {
         className="border p-2 bg-white"
         onChange={handleChange}
       >
-        <option value="name">Name</option>
-        <option value="currency">Currency</option>
-        <option value="currency">Currency</option>
-        <option value="language">Language</option>
-        <option value="capital">Capital</option>
+        <option value="alphabetical">alphabetical</option>
+        <option value="population">population</option>
       </select>
     </label>
   );

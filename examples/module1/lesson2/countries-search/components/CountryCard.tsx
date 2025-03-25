@@ -11,12 +11,15 @@ const CountryCard = ({ country }: CountryCardProps) => {
       data-testid="country-card"
     >
       <img
-        src={country.flags.png}
+        src={country.flags?.png}
         alt={`${country.name.common} flag`}
         className="w-full h-40 object-cover"
       />
       <div className="p-4">
-        <h2 className="text-xl font-semibold mb-2" data-testid="country-name">
+        <h2
+          className="text-xl font-semibold mb-2 text-black"
+          data-testid="country-name"
+        >
           {country.name.common}
         </h2>
         {country.population && (
