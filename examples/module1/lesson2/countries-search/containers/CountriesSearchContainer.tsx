@@ -6,6 +6,7 @@ import FilterOption from '../components/FilterOption';
 import SortOption from '../components/SortOptions';
 import CountryList from '../components/CountryList';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Pagination from '../components/Pagination';
 
 const CountriesSearchContainer = () => {
   const [name, setName] = useState('');
@@ -26,6 +27,25 @@ const CountriesSearchContainer = () => {
     return sorted;
   }, [countries, sortOption]);
 
+  // total pages
+
+  const totalPages = Math.ceil(sortedCountries.length / itemsPerPage);
+
+  // current page
+  useEffect(() => {
+    if (currentPage !== 1) setCurrentPage(1);
+  }, [filterType, name, sortOption]);
+
+  // filter current countries
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCountries = sortedCountries.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  console.log(totalPages);
+
   return (
     <main className="container mx-auto py-4">
       <div className="flex">
@@ -37,7 +57,12 @@ const CountriesSearchContainer = () => {
       </div>
       {/* countries list */}
       <ErrorBoundary>
-        <CountryList countries={sortedCountries} />
+        <CountryList countries={currentCountries} />
+        <Pagination
+          pages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </ErrorBoundary>
     </main>
   );
