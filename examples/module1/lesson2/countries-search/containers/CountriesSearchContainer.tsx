@@ -18,6 +18,7 @@ const CountriesSearchContainer = () => {
 
   const sortedCountries = useMemo(() => {
     if (!countries) return [];
+    console.log(countries);
     const sorted = [...countries];
     if (sortOption === 'alphabetical') {
       sorted.sort((a, b) => a.name.common.localeCompare(b.name.common));
@@ -44,7 +45,20 @@ const CountriesSearchContainer = () => {
     indexOfLastItem
   );
 
-  console.log(totalPages);
+  const renderContent = () => {
+    if (error) return <div className="text-red-500">{error}</div>;
+
+    return (
+      <>
+        <CountryList countries={currentCountries} />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pages={totalPages}
+        />
+      </>
+    );
+  };
 
   return (
     <main className="container mx-auto py-4">
@@ -56,14 +70,7 @@ const CountriesSearchContainer = () => {
         <SortOption value={sortOption} setValue={setSortOption} />
       </div>
       {/* countries list */}
-      <ErrorBoundary>
-        <CountryList countries={currentCountries} />
-        <Pagination
-          pages={totalPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      </ErrorBoundary>
+      <ErrorBoundary>{renderContent()}</ErrorBoundary>
     </main>
   );
 };

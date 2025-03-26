@@ -13,18 +13,18 @@ const useFetchCountires = (searchValue: string, searchTerm: FilterOptions) => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const fetchStrategies = {
-    default: fetchAllCountries,
-    name: fetchCountriesByName,
-    language: fetchCountriesByLanguage,
-    currency: fetchCountriesByCurrency,
-    capital: fetchCountriesByCapital,
-  };
-
   useEffect(() => {
-    setIsLoading(true);
-    setError(null);
+    const fetchStrategies = {
+      default: fetchAllCountries,
+      name: fetchCountriesByName,
+      language: fetchCountriesByLanguage,
+      currency: fetchCountriesByCurrency,
+      capital: fetchCountriesByCapital,
+    };
+
     const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
       try {
         const fetchFn =
           searchValue === ''
@@ -34,6 +34,7 @@ const useFetchCountires = (searchValue: string, searchTerm: FilterOptions) => {
         const data = await fetchFn(searchValue);
         setCountries(data);
       } catch (error) {
+        console.log('catch');
         setError(
           error instanceof Error ? error.message : 'An expected error ocurred'
         );

@@ -22,7 +22,9 @@ const fetchCountriesByName = async (name: string) => {
   const response = await fetch(`${BASE_URL}/name/${name}`);
 
   if (!response.ok) {
-    generateResponseMessage('name', name, response.status === 404);
+    throw new Error(
+      generateResponseMessage('name', name, response.status === 404)
+    );
   }
 
   const data: Country[] = await response.json();
