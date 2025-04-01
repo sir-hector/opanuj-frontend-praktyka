@@ -16,6 +16,9 @@ describe('User renderer', () => {
     const container = document.createElement('div');
     renderItems(container, users);
     expect(Array.from(container.querySelectorAll('li'))).toHaveLength(3);
+    expect(
+      Array.from(container.querySelectorAll('li'))[0].textContent
+    ).toContain('John');
   });
 
   test('should render only regular users if non-admin is rendering the list', () => {
